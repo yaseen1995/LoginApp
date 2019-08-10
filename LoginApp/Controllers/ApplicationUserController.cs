@@ -36,6 +36,7 @@ namespace LoginApp.Controllers
             return new string[] { "value1", "value2" };
         }
 
+        //http post
         [HttpPost]
         [Route("Register")]
         public async Task<Object> PostApplicationUser(ApplicationUserModel model)
