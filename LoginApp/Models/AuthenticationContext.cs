@@ -17,7 +17,7 @@ namespace LoginApp.Models
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ApplicationUser>()
-                .Property(a => a.Fullname)
+                .Property(a => a.FullName)
                 .HasColumnType("nvarchar(150)");
 
             base.OnModelCreating(modelBuilder);

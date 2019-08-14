@@ -45,7 +45,7 @@ namespace LoginApp.Controllers
             {
                 UserName = model.UserName,
                 Email = model.Email,
-                Fullname = model.FullName
+                FullName = model.FullName
             };
 
             try

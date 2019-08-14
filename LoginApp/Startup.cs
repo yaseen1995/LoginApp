@@ -49,7 +49,7 @@ namespace LoginApp
             }
             );
 
-
+            services.AddCors();
 
 
         }
@@ -61,6 +61,14 @@ namespace LoginApp
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors(builder =>
+            builder.WithOrigins("http://localhost:1234")
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+
+            );
+
             app.UseAuthentication();
 
             app.UseMvc();
