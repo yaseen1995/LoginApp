@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using LoginApp.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 
 namespace LoginApp.Controllers
 {
@@ -15,11 +19,14 @@ namespace LoginApp.Controllers
     {
         private UserManager<ApplicationUser> _userManager;
         private SignInManager<ApplicationUser> _signInManager;
+        private ApplicationSettings _appSttings;
 
-        public ApplicationUserController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+
+        public ApplicationUserController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IOptions<ApplicationSettings> appSettings)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _appSttings = appSettings.Value;
 
         }
 
@@ -57,8 +64,47 @@ namespace LoginApp.Controllers
             {
                 throw ex;
 
-             }
+            }
 
         }
+
+        [HttpPost]
+        [Route("login")]
+        public async Task<IActionResult> Login(LoginModel model)
+        {
+            var user = await _userManager.FindByEmailAsync(model.UserName);
+            if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
+            {
+
+                var signingKey = Convert.FromBase64String(_appSttings.JWT_Secret);
+                var expiryDuration = int.Parse(_appSttings.ExpiryDuration);
+
+                var tokenDescriptor = new SecurityTokenDescriptor
+                {
+                    Issuer = null,              // Not required as no third-party is involved
+                    Audience = null,            // Not required as no third-party is involved
+                    IssuedAt = DateTime.UtcNow,
+                    NotBefore = DateTime.UtcNow,
+                    Expires = DateTime.UtcNow.AddMinutes(expiryDuration),
+                    Subject = new ClaimsIdentity(new List<Claim> {
+                new Claim("USERID", user.Id.ToString()),
+            }),
+                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(signingKey), SecurityAlgorithms.HmacSha256Signature)
+                };
+                var jwtTokenHandler = new JwtSecurityTokenHandler();
+                var jwtToken = jwtTokenHandler.CreateJwtSecurityToken(tokenDescriptor);
+                var token = jwtTokenHandler.WriteToken(jwtToken);
+                return Ok(new { token });
+            }
+
+            else
+            {
+                return BadRequest(new { message = "Username or Password is Incorrect" });
+
+            }
+
+        }
+
     }
+
 }

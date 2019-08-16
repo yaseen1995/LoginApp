@@ -1,29 +1,18 @@
-<div class="row mt-4">
-<div class="col-md-6">
-  <div class="row" style="height: 450px;">
-    <div class="col-md-12 my-auto side-header">
-      <img src="/assets/img/add_user.png" class="mx-auto d-block">
-       <h1>User Registration</h1>
-       <p><em>-Using <strong>Asp.Net Core Web API </strong> and <strong>Angular 7</strong>-</em></p>
-    </div>
-  </div>
-</div>
-<div class="col-md-6">  
   <form [formGroup]="service.formModel" autocomplete="off" (submit)="onSubmit()">
     <div class="form-group required">
       <label>Username</label>
-      <input class="form-control" formControlName="UserName">
+      <input class="form-control" type="text" formControlName="UserName">
       <label class="text-danger" *ngIf="service.formModel.get('UserName').touched && service.formModel.get('UserName').errors?.required">This field is mandatory.</label>
     </div>
     <div class="form-group">
        <label>Email</label>
-       <input class="form-control" formControlName="Email">
+       <input class="form-control" type="text" formControlName="Email">
        <label class="text-danger" *ngIf="service.formModel.get('Email').touched && service.formModel.get('Email').errors?.email">Invalid email address.</label>
 
     </div>
     <div class="form-group">
        <label>Full Name</label>
-       <input class="form-control" formControlName="FullName">
+       <input class="form-control" type="text" formControlName="FullName">
     </div>
     <div formGroupName="Passwords">
     <div class="form-group required">
@@ -47,8 +36,6 @@
         </div>
     </div>
     </form>
-</div>
-</div>
 
 
 

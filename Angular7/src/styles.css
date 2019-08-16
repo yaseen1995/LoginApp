@@ -1,49 +1,145 @@
 body{
-    background-color: #ffc107;
+    background-color: #04c582;
+    background: url(src/assets/img/restaurant.jpg);
+    background-size: cover;
+    background-position: center;
+    font-family: sans-serif;
+    background-repeat: no-repeat;
+
+
 }
 
-input.form-control,input.form-control:focus {
-    background-color: #ffc107;
-    color: black;
-    border-color: black;
-    border-radius: 0px;
-    border-width: 2px;
+input.form-control,input.form-control:focus{
+    background-color: #636b7b;
+    color: #fff;
+    border: 1px solid #636b7b;
+
 }
 
-input.form-control:focus {
+input.form-control:focus{
     box-shadow: none;
-    border-bottom-color: black 
 }
 
-button[type=submit].btn {
-border-radius: 20px;
-background-color: #000;
-color: #fff;
+button[type=submit].btn{
+    border: none;
+    outline: none;
+    height: 45px;
+    background: #fb2525;
+    color: #fff;
+    font-size: 18px;
+    border-radius: 20px;
 }
 
-div.form-group label {
-    color: black;
-    font-weight: bold;
+button[type=submit].btn:hover {
+
+    background: #ffc107;
+    color: #000;
 }
 
-/* The below is targeting all required classes in a form group, and is targeting the labels
-for those required class divs, and is targeting the first child of each label within this requried class.
-Once it targets those elements, it sets the asterisk or the contents of this css body after the label*/
+div.form-group label:not(.text-danger){
+    color: #545d6a;
+    font-weight: 700;
+}
 
-div.form-group.required>label:first-child:after {
-    content: '*';
-    color: #dc3545;
+div.form-group.required>label:first-child:after{
+    content:'*';
+    color: #fff;
     padding-left: 5px;
 }
 
-#toast-container {
-    opacity: 1;
+.avatar {
+    width: 35%;
+    margin-top: -20%;
 }
 
-form {
-    margin: 0px 16px;
+#toast-container > div {
+    opacity:1;
 }
 
-div.side-header {
-    border:3px solid black;
+.loginbox label {
+    margin: 0;
+    padding: 0;
+    font-weight: bold;
+    font-family: serif;
 }
+
+.loginbox input {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+  input[type="text"] , input[type="password"] {
+    border:none;
+    border-bottom: 1px solid #fff;
+    background: transparent;
+    outline: none;
+    height: 40px;
+    color: white;
+    font-size: 16px;
+}
+
+.wrapper {
+    display: flex;
+    align-items: center;
+    flex-direction: column; 
+    justify-content: center;
+    width: 100%;
+    padding: 20px;
+  }
+
+  .wrapped-div {
+    -webkit-border-radius: 10px 10px 10px 10px;
+    border-radius: 10px 10px 10px 10px;
+    background: #2e3137;
+    padding: 30px;
+    width: 90%;
+    max-width: 450px;
+    position: relative;
+    padding: 0px;
+    -webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+    box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+    margin-top: 10%;
+  }
+
+  /* Tabs */
+.tab-header{
+    text-align: center;
+}
+
+  .tab-header h2.active {
+    color: #fff;
+    border-bottom: 4px solid #fff;
+  }
+
+  .tab-header h2 {
+    text-align: center;
+    font-size: 18px;
+    font-weight: 600;
+    display:inline-block;
+    padding: 30px 40px 10px 40px;
+    cursor: pointer;
+    color: #545d6a;
+    border-bottom: 2px solid #545d6a;
+  }
+
+  .tab-header h2:focus {
+      outline: none;
+  }
+
+  form{
+      margin: 0px 16px;
+  }
+
+ div.form-group input.invalid{
+    border: 1px solid #dc3545; 
+ }
+ div.form-group label:first-child{
+    text-transform: uppercase;
+    font-size: 0.9rem;
+ }
+
+ @media only screen and (max-width: 1028px) {
+     body {
+        background: #04c582;
+     }
+ }
