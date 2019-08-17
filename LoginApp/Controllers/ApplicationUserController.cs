@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 using LoginApp.Models;
 using Microsoft.AspNetCore.Http;
@@ -72,12 +73,13 @@ namespace LoginApp.Controllers
         [Route("login")]
         public async Task<IActionResult> Login(LoginModel model)
         {
+
             var user = await _userManager.FindByEmailAsync(model.UserName);
+            var signingKey = Encoding.UTF8.GetBytes((_appSttings.JWT_Secret));
+            var expiryDuration = int.Parse(_appSttings.ExpiryDuration);
+
             if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
             {
-
-                var signingKey = Convert.FromBase64String(_appSttings.JWT_Secret);
-                var expiryDuration = int.Parse(_appSttings.ExpiryDuration);
 
                 var tokenDescriptor = new SecurityTokenDescriptor
                 {
