@@ -74,7 +74,7 @@ namespace LoginApp.Controllers
         public async Task<IActionResult> Login(LoginModel model)
         {
 
-            var user = await _userManager.FindByEmailAsync(model.UserName);
+            var user = await _userManager.FindByNameAsync(model.UserName);
             var signingKey = Encoding.UTF8.GetBytes((_appSttings.JWT_Secret));
             var expiryDuration = int.Parse(_appSttings.ExpiryDuration);
 
