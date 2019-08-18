@@ -9,6 +9,11 @@ body{
 
 }
 
+body.login {
+    background: #04c582;
+}
+
+
 input.form-control,input.form-control:focus{
     background-color: #636b7b;
     color: #fff;
