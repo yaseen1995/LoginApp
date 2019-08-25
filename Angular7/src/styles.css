@@ -1,3 +1,5 @@
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
 body{
     background-color: #04c582;
     background: url(src/assets/img/restaurant.jpg);
@@ -10,7 +12,20 @@ body{
 }
 
 body.login {
-    background: #04c582;
+    background: white;
+}
+
+.jumbotron{
+    padding-top: 0px;
+    background: #fff;
+}
+
+.form-control,.input-group-text{
+    border:1px solid #0080ff;
+}
+
+table.table-hover tbody tr:hover{
+cursor: pointer;
 }
 
 
@@ -142,6 +157,20 @@ div.form-group.required>label:first-child:after{
     text-transform: uppercase;
     font-size: 0.9rem;
  }
+
+.jumbotron{
+    padding-top: 0px;
+    background: #fff;
+}
+
+.form-control,.input-group-text{
+    border:1px solid #0080ff;
+}
+
+table.table-hover tbody tr:hover{
+cursor: pointer;
+}
+
 
  @media only screen and (max-width: 1028px) {
      body {

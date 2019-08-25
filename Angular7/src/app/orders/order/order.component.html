@@ -1,0 +1,102 @@
+<nav class="navbar navbar-dark bg-dark">
+    <a class="navbar-brand text-white">Restraunt System</a>
+    <button class="btn btn-danger my-2 my-sm-0" (click)="onLogout()">Logout</button>
+  </nav>
+  
+  <div class="card m-5" style="width:18rem" *ngIf="userDetails">
+    <ul class="list-group">
+      <li class="list-group-item"><strong>Username : </strong>{{userDetails.userName}}</li>
+      <li class="list-group-item"><strong>FullName : </strong>{{userDetails.fullName}}</li>
+      <li class="list-group-item"><strong>Email : </strong>{{userDetails.email}}</li>
+    </ul>
+  </div>
+
+  <div class="jumbotron jumbtron-fluid">
+    <h3 class="display-4 text-center"><img src="/assets/img/food.png"> Restaurant App.</h3>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-10 offset-md-1">
+          <router-outlet></router-outlet>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <form #form="ngForm" autocomplete="off" *ngIf="orderService.formData" (submit)="onSubmit(form)">
+    <input type="hidden"  name="OrderID" #OrderID="ngModel" [(ngModel)]="orderService.formData.OrderID">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Order No.</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <div class="input-group-text">#</div>
+            </div>
+            <input name="OrderNo" #OrderNo="ngModel" [(ngModel)]="orderService.formData.OrderNo" class="form-control" readonly>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Customer</label>
+          <select name="CustomerID" #CustomerID="ngModel" [(ngModel)]="orderService.formData.CustomerID" class="form-control"
+          [class.is-invalid]="!isValid && orderService.formData.CustomerID==0">
+            <option value="0">-Select-</option>
+            <option *ngFor="let item of customerList" value="{{item.CustomerID}}">{{item.Name}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Payment Method</label>
+          <select name="PMethod" #PMethod="ngModel" [(ngModel)]="orderService.formData.PMethod" class="form-control">
+            <option value="">-Select-</option>
+            <option value="Cash">Cash</option>
+            <option value="Card">Card</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Grand Total</label>
+  
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <div class="input-group-text">$</div>
+            </div>
+            <input name="GTotal" #GTotal="ngModel" [(ngModel)]="orderService.formData.GTotal" class="form-control" readonly>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- order items table-->
+    <table class="table table-borderless">
+      <thead class="thead-light">
+        <th>Food</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Total</th>
+        <th>
+          <a class="btn btn-sm btn-success text-white" (click)="AddOrEditOrderItem(null,orderService.formData.OrderID)"><i class="fa fa-plus"></i> Add Item</a>
+        </th>
+      </thead>
+      <tbody>
+        <tr *ngIf="orderService.orderItems.length==0" [class.text-danger]="!isValid && orderService.orderItems.length==0">
+          <td class="font-italic text-center" colspan="5">
+            No food item selected for this order.
+          </td>
+        </tr>
+  
+        <tr *ngFor="let item of orderService.orderItems;let i=index;">
+          <td>{{item.ItemName}}</td>
+          <td>{{item.Price}}</td>
+          <td>{{item.Quantity}}</td>
+          <td>{{item.Total}}</td>
+          <td>
+            <a class="btn btn-sm btn-info text-white" (click)="AddOrEditOrderItem(i,orderService.formData.OrderID)"><i class="fa fa-pencil"></i></a>
+            <a class="btn btn-sm btn-danger text-white ml-1" (click)="onDeleteOrderItem(item.OrderItemID,i)"><i class="fa fa-trash"></i></a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="form-group">
+      <button type="submit" class="btn btn-dark"><i class="fa fa-database"></i> Submit</button>
+      <a class="btn btn-outline-dark ml-1" routerLink="/orders"><i class="fa fa-table"></i> View Orders</a>
+    </div>
+  </form>

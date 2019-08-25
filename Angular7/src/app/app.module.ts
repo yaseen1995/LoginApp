@@ -4,6 +4,7 @@ import {ReactiveFormsModule, FormsModule} from '@angular/forms';
 import { HttpClientModule } from "@angular/common/http"; 
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatDialogModule} from '@angular/material/dialog';
 
 
 
@@ -14,13 +15,21 @@ import { AppRoutingModule } from './app-routing.module';
 import { UserService } from './shared/user.service';
 import { LoginComponent } from './user/login/login.component';
 import { HomeComponent } from './home/home.component';
+import { OrdersComponent } from './orders/orders.component';
+import { OrderComponent } from './orders/order/order.component';
+import { OrderItemsComponent } from './orders/order-items/order-items.component';
+import { OrderService } from './shared/order.service';
+
 @NgModule({
   declarations: [
     AppComponent,
     UserComponent,
     RegistrationComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    OrdersComponent,
+    OrderComponent,
+    OrderItemsComponent
   ],
   imports: [
     BrowserModule,
@@ -31,9 +40,11 @@ import { HomeComponent } from './home/home.component';
       progressBar: true
     }),
     FormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatDialogModule
   ],
-  providers: [UserService],
+  entryComponents:[OrderItemsComponent],
+  providers: [OrderService, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

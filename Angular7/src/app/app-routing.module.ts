@@ -4,7 +4,8 @@ import {Routes, RouterModule } from '@angular/router';
 import { UserComponent } from './user/user.component';
 import { RegistrationComponent } from './user/registration/registration.component';
 import { LoginComponent } from './user/login/login.component';
-import { HomeComponent } from './home/home.component';
+import { OrderComponent } from './orders/order/order.component';
+import { OrdersComponent } from './orders/orders.component';
 
 
 // The below is how we set routes for angular projects e.g: /user/registration
@@ -19,7 +20,9 @@ const routes: Routes = [
     ] 
   },
 
-  { path:'home', component: HomeComponent}
+  { path:'orders', component: OrdersComponent}, 
+
+  { path:'order', component: OrderComponent}
 
 ];
 
